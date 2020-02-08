@@ -1,0 +1,12 @@
+RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+$(eval $(RUN_ARGS):;@:)
+PROJECTNAME := $(shell basename "$(PWD)")
+
+.PHONY: help
+help:
+	@echo "Choose a command run in "$(PROJECTNAME)": \n"
+	@find . -maxdepth 1 -type f \( -name Makefile -or -name "*.mk" \) -exec cat {} \+ | sed -n 's/^##//p' | column -t -s ':' |  sed -e 's/^/ /'
+
+.PHONY: deps/up
+## deps/up: starts the project dependencies
+deps/up:
