@@ -10,3 +10,8 @@ help:
 .PHONY: deps/up
 ## deps/up: starts the project dependencies
 deps/up:
+
+.PHONY: generate/protos
+## generate/protos: create go files from proto files
+generate/protos:
+	protoc -I pkg/studytrack -I third_party/googleapis pkg/studytrack/*.proto --go_out=plugins=grpc:pkg/studytrack

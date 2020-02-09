@@ -16,18 +16,68 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
+	"context"
+	"log"
+	"net"
+	"net/http"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+
+	"github.com/Henrod/study-track/internal/storage/memory"
+	"github.com/sirupsen/logrus"
+
+	"github.com/Henrod/study-track/pkg/studytrack"
+
+	"github.com/Henrod/study-track/internal/controller"
 	"github.com/spf13/cobra"
+	"google.golang.org/grpc"
 )
 
 // apiCmd represents the api command
 var apiCmd = &cobra.Command{
 	Use:   "api",
-	Short: "starts grpc api",
-	Long:  `starts grpc api`,
+	Short: "starts grpc and http api",
+	Long:  `starts grpc and http api`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("api called")
+		grpcServer := grpc.NewServer()
+		wait := make(chan struct{})
+		grpcEndpoint := ":8080"
+		httpEndpoint := ":8081"
+
+		// http
+		go func() {
+			ctx := context.Background()
+			ctx, cancel := context.WithCancel(ctx)
+			defer cancel()
+
+			mux := runtime.NewServeMux()
+			opts := []grpc.DialOption{grpc.WithInsecure()}
+			err := studytrack.RegisterUserServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
+			if err != nil {
+				log.Fatalf("failed to register: %v", err)
+			}
+
+			if err = http.ListenAndServe(httpEndpoint, mux); err != nil {
+				log.Fatalf("failed to serve http: %v", err)
+			}
+		}()
+
+		// grpc
+		go func() {
+			lis, err := net.Listen("tcp", grpcEndpoint)
+			if err != nil {
+				log.Fatalf("failed to listen: %v", err)
+			}
+
+			logger := logrus.New()
+			storage := &memory.Storage{}
+			studytrack.RegisterUserServiceServer(grpcServer, controller.NewUser(storage, logger))
+			if err = grpcServer.Serve(lis); err != nil {
+				log.Fatalf("failed to serve grpc: %v", err)
+			}
+		}()
+
+		<-wait
 	},
 }
 

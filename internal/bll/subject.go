@@ -13,6 +13,7 @@ import (
 
 type Subject struct {
 	ID          uuid.UUID
+	UserID      uuid.UUID
 	SubjectID   uuid.UUID
 	Title       string
 	Description string
