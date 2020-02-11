@@ -17,18 +17,18 @@ package cmd
 
 import (
 	"context"
+	"database/sql"
 	"log"
 	"net"
 	"net/http"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-
-	"github.com/Henrod/study-track/internal/storage/memory"
-	"github.com/sirupsen/logrus"
-
-	"github.com/Henrod/study-track/pkg/studytrack"
+	_ "github.com/lib/pq"
 
 	"github.com/Henrod/study-track/internal/controller"
+	"github.com/Henrod/study-track/internal/storage/db"
+	"github.com/Henrod/study-track/pkg/studytrack"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 )
@@ -70,8 +70,16 @@ var apiCmd = &cobra.Command{
 			}
 
 			logger := logrus.New()
-			storage := &memory.Storage{}
+			pg, err := sql.Open(
+				"postgres",
+				"postgres://postgres:@localhost:9000/studytrack?sslmode=disable")
+			if err != nil {
+				log.Fatalf("failed to connect to db: %v", err)
+			}
+
+			storage := db.New(pg)
 			studytrack.RegisterUserServiceServer(grpcServer, controller.NewUser(storage, logger))
+			studytrack.RegisterSubjectServiceServer(grpcServer, controller.NewSubject(storage, logger))
 			if err = grpcServer.Serve(lis); err != nil {
 				log.Fatalf("failed to serve grpc: %v", err)
 			}

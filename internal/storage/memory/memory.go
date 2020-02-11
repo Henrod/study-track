@@ -1,3 +1,5 @@
+// This package is only supposed to test bll
+
 package memory
 
 import (

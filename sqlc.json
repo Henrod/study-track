@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "packages": [{
+    "name": "db",
+    "emit_json_tags": true,
+    "emit_prepared_queries": false,
+    "emit_interface": true,
+    "path": "internal/storage/db",
+    "queries": "./internal/storage/db/sql",
+    "schema": "./internal/storage/db/migrations"
+  }]
+}

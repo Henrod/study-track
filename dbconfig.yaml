@@ -1,0 +1,5 @@
+development:
+    dialect: postgres
+    datasource: host=localhost port=9000 user=postgres dbname=studytrack sslmode=disable
+    dir: internal/storage/db/migrations/
+    table: studytrack

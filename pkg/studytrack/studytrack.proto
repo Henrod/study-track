@@ -18,3 +18,22 @@ message User {
 message CreateUserRequest {
     User user = 1;
 }
+
+service SubjectService {
+    rpc Create(CreateSubjectRequest) returns (Subject) {
+        option (google.api.http) = {
+            post: '/v1/subjects'
+            body: 'subject'
+        };
+    }
+}
+
+message Subject {
+    string title = 1;
+    string description = 2;
+    int64 deadline = 3;
+}
+
+message CreateSubjectRequest {
+    Subject subject = 1;
+}

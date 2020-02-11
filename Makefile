@@ -14,4 +14,9 @@ deps/up:
 .PHONY: generate/protos
 ## generate/protos: create go files from proto files
 generate/protos:
-	protoc -I pkg/studytrack -I third_party/googleapis pkg/studytrack/*.proto --go_out=plugins=grpc:pkg/studytrack
+	protoc \
+      -I pkg/studytrack \
+      -I third_party/googleapis \
+      --grpc-gateway_out=logtostderr=true:pkg/studytrack \
+      --go_out=plugins=grpc:pkg/studytrack \
+      pkg/studytrack/*.proto
