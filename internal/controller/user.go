@@ -3,8 +3,6 @@ package controller
 import (
 	"context"
 
-	"github.com/Henrod/study-track/internal/storage/db"
-
 	"github.com/Henrod/study-track/internal/bll"
 	"github.com/Henrod/study-track/pkg/studytrack"
 	"github.com/google/uuid"
@@ -12,11 +10,13 @@ import (
 )
 
 type User struct {
-	storage db.Querier
+	storage bll.Storage
 	logger  logrus.FieldLogger
 }
 
-func NewUser(storage db.Querier, logger logrus.FieldLogger) *User {
+var _ studytrack.UserServiceServer = &User{}
+
+func NewUser(storage bll.Storage, logger logrus.FieldLogger) *User {
 	return &User{storage: storage, logger: logger}
 }
 
@@ -39,4 +39,11 @@ func (u *User) Create(
 	}
 
 	return res, nil
+}
+
+func (u *User) Get(
+	ctx context.Context,
+	req *studytrack.GetUserRequest,
+) (user *studytrack.User, err error) {
+	panic("implement me")
 }

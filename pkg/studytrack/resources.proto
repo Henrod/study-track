@@ -1,0 +1,13 @@
+syntax = 'proto3';
+
+package studytrack;
+
+message User {
+    string name = 2;
+}
+
+message Subject {
+    string title = 1;
+    string description = 2;
+    int64 deadline = 3;
+}

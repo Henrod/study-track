@@ -3,6 +3,7 @@ module github.com/Henrod/study-track
 go 1.13
 
 require (
+	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/golang/protobuf v1.3.3
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2

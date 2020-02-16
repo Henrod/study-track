@@ -14,6 +14,13 @@ type User struct {
 	UpdatedAt time.Time
 }
 
+func (u User) ToBLLUser() bll.User {
+	return bll.User{
+		ID:   u.ID,
+		Name: u.Name,
+	}
+}
+
 func FromBLLUser(user bll.User) User {
 	return User{
 		ID:   user.ID,

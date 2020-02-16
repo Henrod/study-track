@@ -1,39 +1,43 @@
 syntax = 'proto3';
 
+package studytrack;
+
 import "google/api/annotations.proto";
+import "resources.proto";
 
 service UserService {
     rpc Create(CreateUserRequest) returns (User) {
         option (google.api.http) = {
-            post: '/v1/users'
+            post: '/users'
             body: 'user'
+        };
+    }
+
+    rpc Get(GetUserRequest) returns (User) {
+        option (google.api.http) = {
+            get: '/users/{name}'
         };
     }
 }
 
-message User {
-    string name = 2;
+service SubjectService {
+    rpc Create(CreateSubjectRequest) returns (Subject) {
+        option (google.api.http) = {
+            post: '/subjects'
+            body: 'subject'
+        };
+    }
 }
 
 message CreateUserRequest {
     User user = 1;
 }
 
-service SubjectService {
-    rpc Create(CreateSubjectRequest) returns (Subject) {
-        option (google.api.http) = {
-            post: '/v1/subjects'
-            body: 'subject'
-        };
-    }
-}
-
-message Subject {
-    string title = 1;
-    string description = 2;
-    int64 deadline = 3;
+message GetUserRequest {
+    string name = 1;
 }
 
 message CreateSubjectRequest {
     Subject subject = 1;
 }
+

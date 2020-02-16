@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 
-	"github.com/Henrod/study-track/internal/storage/db"
+	"github.com/Henrod/study-track/internal/bll"
 
 	"github.com/Henrod/study-track/internal/errors"
 
@@ -12,11 +12,13 @@ import (
 )
 
 type Subject struct {
-	storage db.Querier
+	storage bll.Storage
 	logger  logrus.FieldLogger
 }
 
-func NewSubject(storage db.Querier, logger logrus.FieldLogger) *Subject {
+var _ studytrack.SubjectServiceServer = &Subject{}
+
+func NewSubject(storage bll.Storage, logger logrus.FieldLogger) *Subject {
 	return &Subject{storage: storage, logger: logger}
 }
 
