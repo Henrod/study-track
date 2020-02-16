@@ -7,6 +7,7 @@ require (
 	github.com/golang/protobuf v1.3.3
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2
+	github.com/k0kubun/pp v3.0.1+incompatible // indirect
 	github.com/lib/pq v1.3.0
 	github.com/rubenv/sql-migrate v0.0.0-20200210110325-c8d4be6f9bb7 // indirect
 	github.com/sirupsen/logrus v1.4.2

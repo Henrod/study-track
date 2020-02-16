@@ -29,9 +29,9 @@ func (u *User) Create(
 		Name: req.User.Name,
 	}
 
-	user, err = bll.CreateUser(ctx, u.logger, u.storage, user)
+	user, err = bll.CreateUser(ctx, u.storage, user)
 	if err != nil {
-		return res, err
+		return res, parseErr(err, "failed to create user")
 	}
 
 	res = &studytrack.User{
@@ -45,9 +45,9 @@ func (u *User) Get(
 	ctx context.Context,
 	req *studytrack.GetUserRequest,
 ) (res *studytrack.User, err error) {
-	user, err := bll.GetUser(ctx, u.logger, u.storage, req.Name)
+	user, err := bll.GetUser(ctx, u.storage, req.Name)
 	if err != nil {
-		return res, err
+		return res, parseErr(err, "failed to get user")
 	}
 
 	res = &studytrack.User{

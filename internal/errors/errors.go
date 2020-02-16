@@ -1,6 +1,8 @@
 package errors
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	ErrInternal              = errors.New("internal server error")
@@ -11,4 +13,8 @@ var (
 
 func New(msg string) error {
 	return errors.New(msg)
+}
+
+func Is(err, target error) bool {
+	return errors.Is(err, target)
 }
