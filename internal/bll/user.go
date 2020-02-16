@@ -28,3 +28,18 @@ func CreateUser(
 
 	return user, nil
 }
+
+func GetUser(
+	ctx context.Context,
+	logger logrus.FieldLogger,
+	storage Storage,
+	name string,
+) (res User, err error) {
+	user, err := storage.GetUser(ctx, name)
+	if err != nil {
+		logger.WithError(err).Errorf("failed to get user")
+		return res, fmt.Errorf("failed to create user: %w", errors.ErrInternal)
+	}
+
+	return user, nil
+}

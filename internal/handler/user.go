@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"context"
@@ -44,6 +44,15 @@ func (u *User) Create(
 func (u *User) Get(
 	ctx context.Context,
 	req *studytrack.GetUserRequest,
-) (user *studytrack.User, err error) {
-	panic("implement me")
+) (res *studytrack.User, err error) {
+	user, err := bll.GetUser(ctx, u.logger, u.storage, req.Name)
+	if err != nil {
+		return res, err
+	}
+
+	res = &studytrack.User{
+		Name: user.Name,
+	}
+
+	return res, nil
 }

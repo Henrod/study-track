@@ -27,7 +27,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"github.com/Henrod/study-track/internal/controller"
+	"github.com/Henrod/study-track/internal/handler"
 	"github.com/Henrod/study-track/pkg/studytrack"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/sirupsen/logrus"
@@ -79,8 +79,8 @@ var apiCmd = &cobra.Command{
 			logger := logrus.New()
 			storage := getStorage(logger)
 
-			studytrack.RegisterUserServiceServer(grpcServer, controller.NewUser(storage, logger))
-			studytrack.RegisterSubjectServiceServer(grpcServer, controller.NewSubject(storage, logger))
+			studytrack.RegisterUserServiceServer(grpcServer, handler.NewUser(storage, logger))
+			studytrack.RegisterSubjectServiceServer(grpcServer, handler.NewSubject(storage, logger))
 			if err = grpcServer.Serve(lis); err != nil {
 				logger.Fatalf("failed to serve grpc: %v", err)
 			}
