@@ -20,6 +20,10 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
+	"os/signal"
+	"sync"
+	"syscall"
 
 	"github.com/Henrod/study-track/internal/bll"
 	"github.com/Henrod/study-track/internal/handler"
@@ -44,17 +48,26 @@ var apiCmd = &cobra.Command{
 	Short: "starts grpc and http api",
 	Long:  `starts grpc and http api`,
 	Run: func(cmd *cobra.Command, args []string) {
-		wait := make(chan struct{})
+		var wg sync.WaitGroup
 
+		interruptGRPC := make(chan os.Signal, 1)
+		signal.Notify(interruptGRPC, os.Interrupt, syscall.SIGTERM)
+
+		wg.Add(1)
 		go serveHTTP()
-		go serveGRPC()
+		go serveGRPC(interruptGRPC, &wg)
 
-		<-wait
+		wg.Wait()
 	},
 }
 
-func serveGRPC() {
+func serveGRPC(interrupt chan os.Signal, wg *sync.WaitGroup) {
 	grpcServer := grpc.NewServer()
+	go func() {
+		<-interrupt
+		grpcServer.GracefulStop()
+		wg.Done()
+	}()
 
 	lis, err := net.Listen("tcp", grpcEndpoint)
 	if err != nil {
