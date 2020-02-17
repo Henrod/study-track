@@ -15,7 +15,7 @@ service UserService {
 
     rpc Get(GetUserRequest) returns (User) {
         option (google.api.http) = {
-            get: '/users/{name}'
+            get: '/users/{user}'
         };
     }
 }
@@ -29,15 +29,42 @@ service SubjectService {
     }
 }
 
+service ThemeService {
+    rpc Create(CreateThemeRequest) returns (Theme) {
+        option (google.api.http) = {
+            post: '/users/{user}/themes'
+            body: 'theme'
+        };
+    }
+
+    rpc List(ListThemesRequest) returns (ListThemesResponse) {
+        option (google.api.http) = {
+            get: '/users/{user}/themes'
+        };
+    }
+}
+
 message CreateUserRequest {
     User user = 1;
 }
 
 message GetUserRequest {
-    string name = 1;
+    string user = 1;
 }
 
 message CreateSubjectRequest {
     Subject subject = 1;
 }
 
+message CreateThemeRequest {
+    Theme theme = 1;
+    string user = 2;
+}
+
+message ListThemesRequest {
+    string user = 1;
+}
+
+message ListThemesResponse {
+    repeated Theme themes = 1;
+}

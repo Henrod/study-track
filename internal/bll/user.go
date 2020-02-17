@@ -2,12 +2,9 @@ package bll
 
 import (
 	"context"
-
-	"github.com/google/uuid"
 )
 
 type User struct {
-	ID   uuid.UUID
 	Name string
 }
 

@@ -5,7 +5,6 @@ import (
 
 	"github.com/Henrod/study-track/internal/bll"
 	"github.com/Henrod/study-track/pkg/studytrack"
-	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 )
 
@@ -25,7 +24,6 @@ func (u *User) Create(
 	req *studytrack.CreateUserRequest,
 ) (res *studytrack.User, err error) {
 	user := bll.User{
-		ID:   uuid.UUID{},
 		Name: req.User.Name,
 	}
 
@@ -45,7 +43,7 @@ func (u *User) Get(
 	ctx context.Context,
 	req *studytrack.GetUserRequest,
 ) (res *studytrack.User, err error) {
-	user, err := bll.GetUser(ctx, u.storage, req.Name)
+	user, err := bll.GetUser(ctx, u.storage, req.User)
 	if err != nil {
 		return res, parseErr(err, "failed to get user")
 	}

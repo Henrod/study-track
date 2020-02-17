@@ -20,6 +20,9 @@ func parseErr(err error, msg string) (res error) {
 
 	case errors.Is(err, errors.ErrMissingImplementation):
 		return status.Errorf(codes.Internal, "%s: %v", msg, err)
+
+	case errors.Is(err, errors.ErrInvalidArgument):
+		return status.Errorf(codes.InvalidArgument, "%s: %v", msg, err)
 	}
 
 	return errors.New(msg)

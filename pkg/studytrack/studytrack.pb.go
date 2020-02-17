@@ -65,7 +65,7 @@ func (m *CreateUserRequest) GetUser() *User {
 }
 
 type GetUserRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	User                 string   `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -96,9 +96,9 @@ func (m *GetUserRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetUserRequest proto.InternalMessageInfo
 
-func (m *GetUserRequest) GetName() string {
+func (m *GetUserRequest) GetUser() string {
 	if m != nil {
-		return m.Name
+		return m.User
 	}
 	return ""
 }
@@ -142,35 +142,171 @@ func (m *CreateSubjectRequest) GetSubject() *Subject {
 	return nil
 }
 
+type CreateThemeRequest struct {
+	Theme                *Theme   `protobuf:"bytes,1,opt,name=theme,proto3" json:"theme,omitempty"`
+	User                 string   `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateThemeRequest) Reset()         { *m = CreateThemeRequest{} }
+func (m *CreateThemeRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateThemeRequest) ProtoMessage()    {}
+func (*CreateThemeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_06b3e258921f26d8, []int{3}
+}
+
+func (m *CreateThemeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateThemeRequest.Unmarshal(m, b)
+}
+func (m *CreateThemeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateThemeRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateThemeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateThemeRequest.Merge(m, src)
+}
+func (m *CreateThemeRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateThemeRequest.Size(m)
+}
+func (m *CreateThemeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateThemeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateThemeRequest proto.InternalMessageInfo
+
+func (m *CreateThemeRequest) GetTheme() *Theme {
+	if m != nil {
+		return m.Theme
+	}
+	return nil
+}
+
+func (m *CreateThemeRequest) GetUser() string {
+	if m != nil {
+		return m.User
+	}
+	return ""
+}
+
+type ListThemesRequest struct {
+	User                 string   `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListThemesRequest) Reset()         { *m = ListThemesRequest{} }
+func (m *ListThemesRequest) String() string { return proto.CompactTextString(m) }
+func (*ListThemesRequest) ProtoMessage()    {}
+func (*ListThemesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_06b3e258921f26d8, []int{4}
+}
+
+func (m *ListThemesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListThemesRequest.Unmarshal(m, b)
+}
+func (m *ListThemesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListThemesRequest.Marshal(b, m, deterministic)
+}
+func (m *ListThemesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListThemesRequest.Merge(m, src)
+}
+func (m *ListThemesRequest) XXX_Size() int {
+	return xxx_messageInfo_ListThemesRequest.Size(m)
+}
+func (m *ListThemesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListThemesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListThemesRequest proto.InternalMessageInfo
+
+func (m *ListThemesRequest) GetUser() string {
+	if m != nil {
+		return m.User
+	}
+	return ""
+}
+
+type ListThemesResponse struct {
+	Themes               []*Theme `protobuf:"bytes,1,rep,name=themes,proto3" json:"themes,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListThemesResponse) Reset()         { *m = ListThemesResponse{} }
+func (m *ListThemesResponse) String() string { return proto.CompactTextString(m) }
+func (*ListThemesResponse) ProtoMessage()    {}
+func (*ListThemesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_06b3e258921f26d8, []int{5}
+}
+
+func (m *ListThemesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListThemesResponse.Unmarshal(m, b)
+}
+func (m *ListThemesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListThemesResponse.Marshal(b, m, deterministic)
+}
+func (m *ListThemesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListThemesResponse.Merge(m, src)
+}
+func (m *ListThemesResponse) XXX_Size() int {
+	return xxx_messageInfo_ListThemesResponse.Size(m)
+}
+func (m *ListThemesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListThemesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListThemesResponse proto.InternalMessageInfo
+
+func (m *ListThemesResponse) GetThemes() []*Theme {
+	if m != nil {
+		return m.Themes
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*CreateUserRequest)(nil), "studytrack.CreateUserRequest")
 	proto.RegisterType((*GetUserRequest)(nil), "studytrack.GetUserRequest")
 	proto.RegisterType((*CreateSubjectRequest)(nil), "studytrack.CreateSubjectRequest")
+	proto.RegisterType((*CreateThemeRequest)(nil), "studytrack.CreateThemeRequest")
+	proto.RegisterType((*ListThemesRequest)(nil), "studytrack.ListThemesRequest")
+	proto.RegisterType((*ListThemesResponse)(nil), "studytrack.ListThemesResponse")
 }
 
 func init() { proto.RegisterFile("studytrack.proto", fileDescriptor_06b3e258921f26d8) }
 
 var fileDescriptor_06b3e258921f26d8 = []byte{
-	// 296 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x51, 0x4f, 0x4a, 0xf3, 0x40,
-	0x14, 0x27, 0xdf, 0x57, 0x22, 0x7d, 0xc5, 0xb4, 0x8e, 0x11, 0x64, 0x50, 0x28, 0x43, 0x17, 0x6e,
-	0x6c, 0x20, 0xae, 0xec, 0x56, 0xa4, 0xe0, 0x46, 0x68, 0x71, 0xe5, 0x6a, 0x1a, 0x1f, 0x25, 0x6a,
-	0x33, 0x75, 0xe6, 0x45, 0x10, 0x71, 0xe3, 0x15, 0xbc, 0x85, 0xd7, 0xf1, 0x0a, 0x1e, 0x44, 0x32,
-	0xc9, 0xe8, 0x94, 0x74, 0x17, 0x5e, 0x7e, 0xff, 0x07, 0x06, 0x86, 0xca, 0xbb, 0x17, 0xd2, 0x32,
-	0x7b, 0x18, 0xaf, 0xb5, 0x22, 0xc5, 0xe0, 0xef, 0xc2, 0x8f, 0x96, 0x4a, 0x2d, 0x1f, 0x31, 0x91,
-	0xeb, 0x3c, 0x91, 0x45, 0xa1, 0x48, 0x52, 0xae, 0x0a, 0x53, 0x23, 0x79, 0x5f, 0xa3, 0x51, 0xa5,
-	0xce, 0xb0, 0x39, 0x88, 0x73, 0xd8, 0xbb, 0xd0, 0x28, 0x09, 0x6f, 0x0c, 0xea, 0x19, 0x3e, 0x95,
-	0x68, 0x88, 0x8d, 0xa0, 0x53, 0x1a, 0xd4, 0x87, 0xc1, 0x30, 0x38, 0xe9, 0xa5, 0x83, 0xb1, 0x67,
-	0x68, 0x61, 0xf6, 0xaf, 0x18, 0x41, 0x34, 0x45, 0xf2, 0x79, 0x0c, 0x3a, 0x85, 0x5c, 0xa1, 0xe5,
-	0x75, 0x67, 0xf6, 0x5b, 0x5c, 0x42, 0x5c, 0x1b, 0xcc, 0xcb, 0xc5, 0x3d, 0x66, 0xe4, 0xb0, 0xa7,
-	0xb0, 0x63, 0xea, 0x4b, 0x63, 0xb3, 0xef, 0xdb, 0x38, 0xb0, 0xc3, 0xa4, 0x9f, 0x01, 0xf4, 0x2a,
-	0xab, 0x39, 0xea, 0xe7, 0x3c, 0x43, 0x76, 0x0d, 0x61, 0x2d, 0xcb, 0x8e, 0x7d, 0x5e, 0xab, 0x0b,
-	0x6f, 0xa5, 0x17, 0xf1, 0xfb, 0xd7, 0xf7, 0xc7, 0xbf, 0x48, 0x84, 0x49, 0x55, 0xc3, 0x4c, 0x6c,
-	0x1b, 0x76, 0x05, 0xff, 0xa7, 0x48, 0x8c, 0xfb, 0xf0, 0xcd, 0x7a, 0x5b, 0xa4, 0x0e, 0xac, 0x54,
-	0x9f, 0xed, 0xd6, 0x52, 0xc9, 0x6b, 0x55, 0xf9, 0x2d, 0x5d, 0x41, 0xd4, 0x14, 0x70, 0x71, 0x6f,
-	0x7f, 0xe3, 0x0e, 0xdb, 0x71, 0x37, 0x97, 0xe1, 0xdb, 0x86, 0x10, 0xdc, 0x3a, 0xc5, 0xa2, 0x9b,
-	0x34, 0x8b, 0x98, 0x89, 0xdb, 0x66, 0x11, 0xda, 0xa7, 0x3c, 0xfb, 0x09, 0x00, 0x00, 0xff, 0xff,
-	0x99, 0x4f, 0x16, 0x49, 0x19, 0x02, 0x00, 0x00,
+	// 417 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x93, 0xcf, 0xaa, 0xd3, 0x40,
+	0x18, 0xc5, 0x49, 0x5b, 0x23, 0xfd, 0xaa, 0xfd, 0x33, 0x46, 0x29, 0x43, 0x5b, 0xca, 0x58, 0xa8,
+	0x2e, 0x6c, 0x20, 0xae, 0xec, 0xc6, 0x85, 0x48, 0x41, 0x04, 0xd1, 0xea, 0xca, 0x8d, 0x69, 0xfc,
+	0xa8, 0x51, 0x9b, 0xa9, 0x33, 0x13, 0x41, 0xc4, 0x8d, 0xaf, 0xe0, 0x5b, 0xf8, 0x3a, 0x97, 0xfb,
+	0x06, 0xf7, 0x41, 0x2e, 0x99, 0x99, 0xf4, 0x4e, 0x48, 0xee, 0x5d, 0x95, 0xce, 0x9c, 0x39, 0xbf,
+	0x33, 0xdf, 0x99, 0xc0, 0x50, 0xaa, 0xfc, 0xf3, 0x2f, 0x25, 0xe2, 0xe4, 0xdb, 0xea, 0x28, 0xb8,
+	0xe2, 0x04, 0xae, 0x56, 0xe8, 0x64, 0xcf, 0xf9, 0xfe, 0x3b, 0x86, 0xf1, 0x31, 0x0d, 0xe3, 0x2c,
+	0xe3, 0x2a, 0x56, 0x29, 0xcf, 0xa4, 0x51, 0xd2, 0x81, 0x40, 0xc9, 0x73, 0x91, 0xa0, 0x5d, 0x60,
+	0xcf, 0x60, 0xf4, 0x42, 0x60, 0xac, 0xf0, 0x83, 0x44, 0xf1, 0x0e, 0x7f, 0xe4, 0x28, 0x15, 0x59,
+	0x40, 0x27, 0x97, 0x28, 0xc6, 0xde, 0xdc, 0x7b, 0xd4, 0x8b, 0x86, 0x2b, 0x07, 0xa8, 0x65, 0x7a,
+	0x97, 0x2d, 0xa0, 0xbf, 0x41, 0xe5, 0x9e, 0x23, 0xce, 0xb9, 0xae, 0x55, 0xbd, 0x84, 0xc0, 0x00,
+	0xb6, 0xf9, 0xee, 0x2b, 0x26, 0xaa, 0xd4, 0x3e, 0x81, 0xdb, 0xd2, 0xac, 0x58, 0xcc, 0x3d, 0x17,
+	0x53, 0x8a, 0x4b, 0x0d, 0x7b, 0x0b, 0xc4, 0xd8, 0xbc, 0xff, 0x82, 0x07, 0x2c, 0x4d, 0x96, 0x70,
+	0x4b, 0x15, 0xff, 0xad, 0xc5, 0xc8, 0xb5, 0x30, 0x42, 0xb3, 0x7f, 0x4a, 0xd6, 0x72, 0x92, 0x2d,
+	0x61, 0xf4, 0x3a, 0x95, 0x4a, 0xeb, 0xe4, 0x4d, 0x57, 0x78, 0x0e, 0xc4, 0x15, 0xca, 0x23, 0xcf,
+	0x24, 0x92, 0xc7, 0xe0, 0x6b, 0x6f, 0x39, 0xf6, 0xe6, 0xed, 0x66, 0xb8, 0x15, 0x44, 0xff, 0x3d,
+	0xe8, 0x15, 0x73, 0xda, 0xa2, 0xf8, 0x99, 0x26, 0x48, 0xde, 0x80, 0x6f, 0x2e, 0x43, 0xa6, 0xee,
+	0xa1, 0x5a, 0x11, 0xb4, 0x36, 0x7a, 0x16, 0xfc, 0x3d, 0xbb, 0xf8, 0xd7, 0xea, 0x33, 0x3f, 0x2c,
+	0xa2, 0xc9, 0xb5, 0x4e, 0x48, 0x5e, 0x41, 0x7b, 0x83, 0x8a, 0x50, 0x57, 0x5e, 0xed, 0xa6, 0xc1,
+	0xea, 0xbe, 0xb6, 0x1a, 0x90, 0xbb, 0xc6, 0x2a, 0xfc, 0x5d, 0xfc, 0xfc, 0x89, 0x0e, 0xd0, 0xb7,
+	0xd3, 0x2f, 0xe3, 0x7e, 0x3c, 0xc5, 0x9d, 0xd7, 0xe3, 0x56, 0x6b, 0xa5, 0x4d, 0x2d, 0x32, 0xaa,
+	0x49, 0x01, 0xeb, 0x86, 0xb6, 0x4e, 0xb9, 0x2e, 0x8b, 0x8d, 0xce, 0x3d, 0xb8, 0xa3, 0xa7, 0x55,
+	0xd2, 0x3e, 0x9d, 0x68, 0xb3, 0x3a, 0xcd, 0x6d, 0x9f, 0xd6, 0x27, 0xce, 0x1e, 0x6a, 0xd2, 0x94,
+	0x05, 0x95, 0x3b, 0x85, 0xa6, 0x87, 0xb5, 0x7d, 0x0c, 0x09, 0x74, 0x8a, 0x3e, 0xab, 0xc3, 0xaf,
+	0x3d, 0x05, 0x3a, 0xbb, 0x6e, 0xdb, 0x3c, 0x00, 0x36, 0xd1, 0xac, 0x07, 0xa4, 0x91, 0xb5, 0xf3,
+	0xf5, 0xf7, 0xf5, 0xf4, 0x32, 0x00, 0x00, 0xff, 0xff, 0xc4, 0x11, 0xa9, 0x2f, 0xae, 0x03, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -355,6 +491,114 @@ var _SubjectService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _SubjectService_Create_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "studytrack.proto",
+}
+
+// ThemeServiceClient is the client API for ThemeService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ThemeServiceClient interface {
+	Create(ctx context.Context, in *CreateThemeRequest, opts ...grpc.CallOption) (*Theme, error)
+	List(ctx context.Context, in *ListThemesRequest, opts ...grpc.CallOption) (*ListThemesResponse, error)
+}
+
+type themeServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewThemeServiceClient(cc *grpc.ClientConn) ThemeServiceClient {
+	return &themeServiceClient{cc}
+}
+
+func (c *themeServiceClient) Create(ctx context.Context, in *CreateThemeRequest, opts ...grpc.CallOption) (*Theme, error) {
+	out := new(Theme)
+	err := c.cc.Invoke(ctx, "/studytrack.ThemeService/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *themeServiceClient) List(ctx context.Context, in *ListThemesRequest, opts ...grpc.CallOption) (*ListThemesResponse, error) {
+	out := new(ListThemesResponse)
+	err := c.cc.Invoke(ctx, "/studytrack.ThemeService/List", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ThemeServiceServer is the server API for ThemeService service.
+type ThemeServiceServer interface {
+	Create(context.Context, *CreateThemeRequest) (*Theme, error)
+	List(context.Context, *ListThemesRequest) (*ListThemesResponse, error)
+}
+
+// UnimplementedThemeServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedThemeServiceServer struct {
+}
+
+func (*UnimplementedThemeServiceServer) Create(ctx context.Context, req *CreateThemeRequest) (*Theme, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (*UnimplementedThemeServiceServer) List(ctx context.Context, req *ListThemesRequest) (*ListThemesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+
+func RegisterThemeServiceServer(s *grpc.Server, srv ThemeServiceServer) {
+	s.RegisterService(&_ThemeService_serviceDesc, srv)
+}
+
+func _ThemeService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateThemeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ThemeServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/studytrack.ThemeService/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ThemeServiceServer).Create(ctx, req.(*CreateThemeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ThemeService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListThemesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ThemeServiceServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/studytrack.ThemeService/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ThemeServiceServer).List(ctx, req.(*ListThemesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ThemeService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "studytrack.ThemeService",
+	HandlerType: (*ThemeServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Create",
+			Handler:    _ThemeService_Create_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _ThemeService_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
