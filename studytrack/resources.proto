@@ -2,17 +2,18 @@ syntax = 'proto3';
 
 package studytrack;
 
-message User {
+import "google/protobuf/timestamp.proto";
+
+message Student {
     string name = 1;
 }
 
 message Subject {
     string title = 1;
     string description = 2;
-    int64 deadline = 3;
+    google.protobuf.Timestamp deadline = 3;
 }
 
 message Theme {
     string name = 1;
-    User user = 2;
 }

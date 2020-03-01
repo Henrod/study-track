@@ -15,8 +15,8 @@ deps/up:
 ## generate/protos: create go files from proto files
 generate/protos:
 	protoc \
-      -I pkg/studytrack \
+      -I studytrack \
       -I third_party/googleapis \
-      --grpc-gateway_out=logtostderr=true:pkg/studytrack \
-      --go_out=plugins=grpc:pkg/studytrack \
-      pkg/studytrack/*.proto
+      --grpc-gateway_out=logtostderr=true:studytrack \
+      --go_out=plugins=grpc:studytrack \
+      studytrack/*.proto

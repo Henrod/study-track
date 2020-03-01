@@ -1,7 +1,7 @@
-package handler
+package server
 
 import (
-	"github.com/Henrod/study-track/internal/errors"
+	"github.com/Henrod/study-track/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

@@ -25,10 +25,10 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/Henrod/study-track/internal/bll"
-	"github.com/Henrod/study-track/internal/handler"
-	"github.com/Henrod/study-track/internal/storage/memory"
-	"github.com/Henrod/study-track/pkg/studytrack"
+	"github.com/Henrod/study-track/server"
+
+	"github.com/Henrod/study-track/storage/memory"
+	"github.com/Henrod/study-track/studytrack"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
@@ -77,9 +77,8 @@ func serveGRPC(interrupt chan os.Signal, wg *sync.WaitGroup) {
 	logger := logrus.New()
 	storage := getStorage(logger)
 
-	studytrack.RegisterUserServiceServer(grpcServer, handler.NewUser(storage, logger))
-	studytrack.RegisterSubjectServiceServer(grpcServer, handler.NewSubject(storage, logger))
-	studytrack.RegisterThemeServiceServer(grpcServer, handler.NewTheme(storage, logger))
+	studytrack.RegisterClassServer(grpcServer, server.NewClass(storage, logger))
+	studytrack.RegisterLessonsServer(grpcServer, server.NewLesson(storage, logger))
 	if err = grpcServer.Serve(lis); err != nil {
 		logger.Fatalf("failed to serve grpc: %v", err)
 	}
@@ -93,17 +92,12 @@ func serveHTTP() {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := studytrack.RegisterUserServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
+	err := studytrack.RegisterClassHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
 	if err != nil {
 		log.Fatalf("failed to register: %v", err)
 	}
 
-	err = studytrack.RegisterSubjectServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
-	if err != nil {
-		log.Fatalf("failed to register: %v", err)
-	}
-
-	err = studytrack.RegisterThemeServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
+	err = studytrack.RegisterLessonsHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
 	if err != nil {
 		log.Fatalf("failed to register: %v", err)
 	}
@@ -113,7 +107,7 @@ func serveHTTP() {
 	}
 }
 
-func getStorage(logger logrus.FieldLogger) bll.Storage {
+func getStorage(logger logrus.FieldLogger) server.Storage {
 	switch storageType {
 	/* case "postgres":
 	pg, err := sql.Open(

@@ -1,0 +1,69 @@
+syntax = 'proto3';
+
+package studytrack;
+
+import "google/api/annotations.proto";
+import "resources.proto";
+
+service Class {
+    rpc CreateStudent(CreateStudentRequest) returns (Student) {
+        option (google.api.http) = {
+            post: '/v1/students'
+            body: 'student'
+        };
+    }
+
+    rpc GetStudent(GetStudentRequest) returns (Student) {
+        option (google.api.http) = {
+            get: '/v1/{name=students/*}'
+        };
+    }
+}
+
+service Lessons {
+    rpc CreateTheme(CreateThemeRequest) returns (Theme) {
+        option (google.api.http) = {
+            post: '/v1/{parent=students/*}/themes'
+            body: 'theme'
+        };
+    }
+
+    rpc ListThemes(ListThemesRequest) returns (ListThemesResponse) {
+        option (google.api.http) = {
+            get: '/v1/{name=students/*/themes}'
+        };
+    }
+
+    rpc CreateSubject(CreateSubjectRequest) returns (Subject) {
+        option (google.api.http) = {
+            post: '/v1/{name=students/*/themes/*/subjects}'
+            body: 'subject'
+        };
+    }
+}
+
+message CreateStudentRequest {
+    Student student = 1;
+}
+
+message GetStudentRequest {
+    string name = 1;
+}
+
+message CreateSubjectRequest {
+    string name = 1;
+    Subject subject = 2;
+}
+
+message CreateThemeRequest {
+    Theme theme = 1;
+    string parent = 2;
+}
+
+message ListThemesRequest {
+    string name = 1;
+}
+
+message ListThemesResponse {
+    repeated Theme themes = 1;
+}
